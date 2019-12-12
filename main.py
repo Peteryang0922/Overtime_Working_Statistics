@@ -1,4 +1,4 @@
-﻿import csv
+import csv
 from datetime import datetime
 from pandas import read_csv
 from pandas import DataFrame
@@ -23,8 +23,8 @@ def delete(filename):
     Location = []
     index = -1
     
-    #Remove Invalid Sign In Location
-    Location = df['Sign In Location']
+    #Remove Invalid Check In Location
+    Location = df['Check In Location']
     
     for row in Location:
         index += 1
@@ -34,8 +34,8 @@ def delete(filename):
 
 #Overtime Working Time Count
 def count_work_times(df):
-    #Find the Day of the Sign In Date
-    Time = df['Sign In Time']
+    #Find the Day of the Check In Date
+    Time = df['Check In Time']
     Name = df['Name']
     Week_Day = []
     
@@ -45,16 +45,16 @@ def count_work_times(df):
             whatday = 7
         Week_Day.append(whatday)
     
-    data = df[['Employee ID','Name','Sign In Time','Sign In Date']]
+    data = df[['Employee ID','Name','Check In Time','Check In Date']]
     data['Day'] = [i for i in Week_Day]
     
     #Find if Overtime Working During the Weekdays
     weekday = data[data['Day'] < 6]
-    weekday_time = weekday['Sign In Time']
+    weekday_time = weekday['Check In Time']
     weekday_hour = []
     
     weekday_Name = {}.fromkeys(weekday['Name']).keys()
-    weekday_Date = {}.fromkeys(weekday['Sign In Date']).keys()
+    weekday_Date = {}.fromkeys(weekday['Check In Date']).keys()
     weekday_ID = {}.fromkeys(weekday['Employee ID']).keys()
     
     for row in weekday_time:
@@ -72,7 +72,7 @@ def count_work_times(df):
     
     for i in weekday_Name:
         for j in weekday_Date:
-            work = weekday[(weekday['Name'] == i) & (weekday['Sign In Date'] == j)]
+            work = weekday[(weekday['Name'] == i) & (weekday['Check In Date'] == j)]
             work_time = work['Hour']
             if len(work_time) > 0:
                 if (max(work_time) >= 20):
@@ -86,12 +86,12 @@ def count_work_times(df):
     
     #Find if Overtime Working During the Weekends
     weekend = data[data['Day'] > 5]
-    weekend_time = weekend['Sign In Time']
+    weekend_time = weekend['Check In Time']
     weekend_hour = []
     weekend_minute = []
     decimal_time = []
     
-    #Load the Sign In Time
+    #Load the Check In Time
     for row in weekend_time:
         whichhour = int(datetime.strptime(row,'%Y-%m-%d %H:%M:%S').strftime("%H"))
         whichminute = int(datetime.strptime(row,'%Y-%m-%d %H:%M:%S').strftime("%M"))
@@ -104,13 +104,13 @@ def count_work_times(df):
     weekend['Time'] = [i for i in decimal_time]
     
     weekend_Name = {}.fromkeys(weekend['Name']).keys()
-    weekend_Date = {}.fromkeys(weekend['Sign In Date']).keys()
+    weekend_Date = {}.fromkeys(weekend['Check In Date']).keys()
     count = 0
     
     #Count the Overtime Working Times
     for i in weekend_Name:
         for j in weekend_Date:
-            work = weekend[(weekend['Name'] == i) & (weekend['Sign In Date'] == j)]
+            work = weekend[(weekend['Name'] == i) & (weekend['Check In Date'] == j)]
             work_time = work['Time']
             if len(work_time) > 0:
                 if (min(work_time) < 9.5) & (max(work_time) > 12) & (max(work_time) < 16.5):
@@ -150,7 +150,7 @@ def count_work_times(df):
     output['Overtime Working Times'] = [i for i in work_times]
     output['Subsidy'] = [25*i for i in work_times]
     
-    date = list(df['Sign In Date'])
+    date = list(df['Check In Date'])
     begin = min(date)
     end = max(date)
     
@@ -163,7 +163,7 @@ def whether_week_day(df):
     for i in df['Employee ID']:
         i = str(i)
     #Find the Day
-    Time = df['Sign In Time']
+    Time = df['Check In Time']
     ID = list(df['Employee ID'])
     
     for row in Time:
@@ -176,7 +176,7 @@ def whether_week_day(df):
         Decimal_Time.append(decimal)
     
     whether_Name = {}.fromkeys(df['Name']).keys()
-    whether_Date = {}.fromkeys(df['Sign In Date']).keys()
+    whether_Date = {}.fromkeys(df['Check In Date']).keys()
     
     df['Hour'] = [i for i in Decimal_Time]
     
@@ -189,7 +189,7 @@ def whether_week_day(df):
     
     for i in whether_Name:
         for j in whether_Date:
-            work = df[(df['Name'] == i) & (df['Sign In Date'] == j)]
+            work = df[(df['Name'] == i) & (df['Check In Date'] == j)]
             work_time = work['Hour']
             day = int(datetime.strptime(j,'%Y-%m-%d').strftime("%w"))
             if (day > 0) & (day < 6):
@@ -221,7 +221,7 @@ def whether_week_day(df):
     
     output = DataFrame(a, columns = ['Name'])
     output['Employee ID'] = ['0' + str(i) for i in n]
-    output['Sign In Date'] = [str(i) for i in b]
+    output['Check In Date'] = [str(i) for i in b]
     output['Overtime Working Times'] = [i for i in c]
     output['Overtime Working Day'] = [i for i in Week_Day]
     output['Subsidy'] = [25*i for i in c]
@@ -234,7 +234,7 @@ def whether_week_day(df):
             output = output.drop(index)
         index += 1
     
-    date = list(df['Sign In Date'])
+    date = list(df['Check In Date'])
     begin = min(date)
     end = max(date)
     
