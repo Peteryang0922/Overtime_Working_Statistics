@@ -23,6 +23,8 @@ Overtime Working Statistics
     2) If the check-in information shows that an employee has fully worked from 1:00 PM to 4:30 PM, but start his/her work before 9:00 AM, this employee is considered as having 1 overtime working.
     3) If the check-in information shows that an employee has fully worked from 9:30 AM to 4:30 PM, this employee is considered as having 2 overtime working.
     
+    For each working time, the subsidy is 25 CNY.
+    
     In addition, there are also invalid check-in information. For those Check in location are "WIFI Check In" or "Hongxin Wireless Communication Industrial Park", the information is considered as invalid.
 
  3. Additional Package:
