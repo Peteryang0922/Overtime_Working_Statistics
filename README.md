@@ -12,9 +12,13 @@ Overtime Working Statistics
 2. Explanation
     
     The overtime working has 2 situtations, which are weekdays and weekends.
+    
     Weekdays:
+    
     If the last check-in information of an employee is after 8:00 PM, the employee is considered as having an overtime working.
+    
     Weekends:
+    
     1) If the check-in information shows that an employee has fully worked from 9:30 AM to 12:00 AM, but end his/her work before 4:30 PM, this employee is considered as having 1 overtime working.
     2) If the check-in information shows that an employee has fully worked from 1:00 PM to 4:30 PM, but start his/her work before 9:00 AM, this employee is considered as having 1 overtime working.
     3) If the check-in information shows that an employee has fully worked from 9:30 AM to 4:30 PM, this employee is considered as having 2 overtime working.
