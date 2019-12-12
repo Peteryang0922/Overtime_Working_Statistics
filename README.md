@@ -2,8 +2,11 @@ Overtime Working Statistics
 1. Introduction
     
     This algorithm is to count the overtime working times of the employees in Research and Development Department of Wuhan Hongxin Technical Services Co., Ltd, according to the check in information of every employee.
+    
     The input is a csv (comma delighted) file, which contains Employee ID, Name, Check in time, and Check in location information of the employees.
+    
     The first output file is the total overtime working times of every employee, and how much money the company should compensate to the employee.
+    
     The second output file shows the detail information of every overtime working incident, the name, the date, and the overtime working times.
     
 2. Explanation
